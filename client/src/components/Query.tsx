@@ -56,7 +56,7 @@ export default function QueryApp() {
 
       {/* Buttons */}
       <div className="flex flex-wrap justify-center gap-3 mt-4">
-        <Button onClick={() => handleQuery("transalte")} disabled={loading} className="w-40 flex justify-center">
+        <Button onClick={() => handleQuery("translate")} disabled={loading} className="w-40 flex justify-center">
           {loading ? <span className="animate-spin border-2 border-white border-t-transparent rounded-full w-5 h-5"></span> : "Translate"}
         </Button>
         <Button onClick={() => handleQuery("explain")} disabled={loading} className="w-40 flex justify-center">
