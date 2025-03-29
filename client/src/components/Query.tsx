@@ -3,6 +3,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { BACKEND_URL } from "../lib/Api";
+import { useState } from "react";
 
 export default function QueryApp() {
   const [query, setQuery] = useState("");
