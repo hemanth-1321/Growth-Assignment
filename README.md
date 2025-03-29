@@ -58,7 +58,7 @@ npm run dev
 - Returns: `{ token, token_type }`
 
 ### Query Processing
-`POST /api/query/transalte`
+`POST /api/query/translate`
 - Gemini-Powered natural language query processing
 - Requires JWT token
 - Translates query to SQL
