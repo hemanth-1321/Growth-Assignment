@@ -53,19 +53,19 @@ npm run dev
 ## API Endpoints
 
 ### Authentication
-`POST /auth/login`
+`POST /api/auth/login`
 - Generate JWT token
 - Returns: `{ token, token_type }`
 
 ### Query Processing
-`POST /query/transalte`
+`POST /api/query/transalte`
 - Gemini-Powered natural language query processing
 - Requires JWT token
 - Translates query to SQL
 - Returns query results
 
 ### Query Explanation
-`POST /query/explain`
+`POST /api/query/explain`
 - Generate Gemini-powered query explanations
 - Requires JWT token
 - Provides business-friendly query insights
@@ -82,10 +82,7 @@ npm run dev
 - "Provide revenue data on a monthly basis"
 
 ## Deployment
-Recommended Platforms:
 - Render
-- Heroku
-- Railway
 
 ## Future Enhancements
 - More advanced AI query processing
