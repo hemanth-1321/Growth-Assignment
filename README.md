@@ -26,8 +26,8 @@ An advanced backend service leveraging Google's Gemini AI to translate natural l
 
 1. Clone the Repository
 ```bash
-git clone <your-repo-url>
-cd gen-ai-analytics-backend
+git clone https://github.com/hemanth-1321/Growth-Assignment.git
+cd server
 ```
 
 2. Install Dependencies
@@ -41,42 +41,45 @@ Create a `.env` file:
 PORT=3000
 JWT_SECRET=your_secret_key
 GEMINI_API_KEY=your_gemini_api_key
+EMAIL="test@gmail.com"
+PASSWORD="Test@123"
 ```
 
 4. Run the Application
 ```bash
-npm start
+npm run dev
 ```
 
 ## API Endpoints
 
 ### Authentication
-`POST /auth`
+`POST /auth/login`
 - Generate JWT token
 - Returns: `{ token, user }`
 
 ### Query Processing
-`POST /query`
+`POST /query/transalte`
 - Gemini-Powered natural language query processing
 - Requires JWT token
 - Translates query to SQL
 - Returns query results
 
 ### Query Explanation
-`POST /explain`
+`POST /query/explain`
 - Generate Gemini-powered query explanations
 - Requires JWT token
 - Provides business-friendly query insights
 
 ### Query Validation
-`POST /validate`
+`POST /query/validate`
 - Validate query feasibility
 - Requires JWT token
 
 ## Example Queries
-- "Show total sales for laptops in March"
-- "Compare revenue across different regions"
-- "Find top-selling products in the Enterprise segment"
+- "give all the product names and its revenue from sales"
+- "Find top-selling products"
+- "give the total revenue of the products"
+- "Provide revenue data on a monthly basis"
 
 ## Deployment
 Recommended Platforms:

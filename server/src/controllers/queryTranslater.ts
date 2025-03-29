@@ -1,6 +1,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+const apikey = process.env.GEMINI_API_KEY!;
+console.log("apikey", apikey);
+const genAI = new GoogleGenerativeAI(apikey);
 
 export class QueryTranslater {
   static async translateQuery(query: string) {
@@ -14,7 +15,7 @@ export class QueryTranslater {
       - category: Text (product category)
       - quantity: Integer (units sold)
       - revenue: Decimal (total revenue)
-      - sale_date: Date (when sale occurred)
+      - sale_date: Date (when sale occurred the date of sales of laptops)
       - region: Text (sales region)
       - customer_segment: Text (customer type)
 
@@ -23,6 +24,7 @@ export class QueryTranslater {
       - Use appropriate SQL functions
       - Handle aggregations, filtering, and sorting
       - Prioritize clarity and direct data retrieval
+      - if used the word data just ignore it and focus on the main part
 
       Query: "${query}"
       respond properly if asked about 2 or more rows
@@ -62,26 +64,27 @@ export class QueryTranslater {
     try {
       const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
-      const prompt = `Act as a data analytics expert. 
-      Provide a detailed, business-oriented explanation for this query:
-      "${query}"
-
-      Explain:
-      - The intent behind the query
-      - Potential business insights
-      - How this query helps in decision-making
-      - Context of the data being analyzed
-
-      Make the explanation clear and accessible to non-technical stakeholders.`;
+      const prompt = `Return simulated query breakdown and Analyze the following query and return only the key details:
+    "${query}"
+    
+    If applicable, provide:
+    - The SQL translation
+    - A concise explanation of its purpose`;
 
       const result = await model.generateContent(prompt);
       const response = await result.response;
       const explanation = response.text().trim();
 
-      return explanation;
+      return {
+        query,
+        explanation,
+      };
     } catch (error) {
-      console.error("Explanation Generation Error:", error);
-      return "Unable to generate explanation.";
+      console.error("Query Explanation Error:", error);
+      return {
+        query,
+        explanation: "An error occurred while trying to explain the query.",
+      };
     }
   }
 }

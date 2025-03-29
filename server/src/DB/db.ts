@@ -12,8 +12,6 @@ export const db = new sqlite3.Database(dbPath, (err) => {
     console.log("Connected to SQLite database.");
   }
 });
-
-// Create table and seed data
 db.serialize(() => {
   db.run(`CREATE TABLE IF NOT EXISTS sales_table (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -24,11 +22,15 @@ db.serialize(() => {
     sale_date DATE
   )`);
 
-  // Seed sample data if the table is empty
-  db.get("SELECT COUNT(*) AS count FROM sales", (err, row: any) => {
+  db.get("SELECT COUNT(*) AS count FROM sales_table", (err, row: any) => {
+    if (err) {
+      console.error("Error checking sales_table:", err.message);
+      return;
+    }
+
     if (row.count === 0) {
       const insertStmt = db.prepare(`
-        INSERT INTO sales (product_name, category, quantity, revenue, sale_date) 
+        INSERT INTO sales_table (product_name, category, quantity, revenue, sale_date) 
         VALUES (?, ?, ?, ?, ?)
       `);
 
