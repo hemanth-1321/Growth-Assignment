@@ -4,7 +4,7 @@ import { db } from "../DB/db";
 import { authenticate } from "../middleware";
 
 const router = express.Router();
-router.post("/transalte", authenticate, async (req, res) => {
+router.post("/translate", authenticate, async (req, res) => {
   const user = req.user;
   if (!user) {
     res.status(401).json({
