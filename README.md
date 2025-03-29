@@ -55,7 +55,7 @@ npm run dev
 ### Authentication
 `POST /auth/login`
 - Generate JWT token
-- Returns: `{ token, user }`
+- Returns: `{ token, token_type }`
 
 ### Query Processing
 `POST /query/transalte`
