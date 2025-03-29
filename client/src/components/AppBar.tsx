@@ -13,10 +13,15 @@ import { Input } from "./ui/input";
 import { toast } from "sonner";
 import { BACKEND_URL } from "../lib/Api";
 
+const DEFAULT_CREDENTIALS = {
+  email: "test@gmail.com",
+  password: "Test@123",
+};
+
 const AppBar: React.FC = () => {
   const [open, setOpen] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(DEFAULT_CREDENTIALS.email);
+  const [password, setPassword] = useState(DEFAULT_CREDENTIALS.password);
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState<string | null>(null);
 
@@ -52,6 +57,12 @@ const AppBar: React.FC = () => {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    setToken(null);
+    toast.success("Logged out successfully");
+  };
+
   return (
     <div className="flex justify-between items-center px-6 m-4 py-4 rounded-2xl bg-gray-950 text-white shadow-lg">
       <h1
@@ -63,13 +74,22 @@ const AppBar: React.FC = () => {
 
       <div className="flex gap-2">
         {token ? (
-          <Button
-            variant="outline"
-            className="border-white dark:text-white text-black hover:bg-gray-700"
-            onClick={() => navigate("/query")}
-          >
-            Try Now
-          </Button>
+          <>
+            <Button
+              variant="outline"
+              className="border-white dark:text-white cursor-pointer text-black hover:bg-gray-700"
+              onClick={() => navigate("/query")}
+            >
+              Try Now
+            </Button>
+            <Button
+              variant="outline"
+              className="border-white cursor-pointer dark:text-white text-black hover:bg-red-600"
+              onClick={handleLogout}
+            >
+              Logout
+            </Button>
+          </>
         ) : (
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
@@ -107,7 +127,7 @@ const AppBar: React.FC = () => {
                 />
                 <Button
                   type="submit"
-                  className="w-full dark:bg-gray-700 bg-gray-900 dark:hover:bg-gray-600 hover:bg-gray-700 text-white"
+                  className="w-full dark:bg-gray-700 cursor-pointer bg-gray-900 dark:hover:bg-gray-600 hover:bg-gray-700 text-white"
                   disabled={loading}
                 >
                   {loading ? (
